@@ -1,8 +1,6 @@
 #!/bin/sh
 #made by denellum 2014-11-07#
-#v1.0#
-#change logs coming soon...#
-
+#v1.1#
 
 #DEFINABLE VARIABLES#
 #(You most likely will need to change these)#
