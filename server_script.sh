@@ -1,12 +1,11 @@
 #!/bin/sh
 #made by denellum 2014-11-07#
-#v1.2#
+#v1.0#
 #change logs coming soon...#
 
 
 #DEFINABLE VARIABLES#
 #(You most likely will need to change these)#
-#(The stuff in the quotes)#
 
 #The ABSOLUTE path to your backup directory#
 BACKUPpath="/home/minecraft/backups/"
@@ -60,35 +59,6 @@ while [ "$1" != "" ]; do
         -stop )
                         $SCREENcommand "stop$SCREENenter"
                         ;;
-        #Backs up the server on the defined screen#
-        -backup )
-                        $SCREENcommand "say §a---Beginning §aBackup---$SCREENenter"
-                        $SCREENcommand "say §b---Please §bWait---$SCREENenter"
-                        sleep 5
-                        cd $BACKUPpath
-                        sleep 5
-                        (ls -t|head -n 36;ls)|sort|uniq -u|sed -e 's,.*,"&",g'|xargs rm
-			sleep 10
-                        cd $MINECRAFTpath
-                        tar -cf "$BACKUPpath$BACKUPname" $WORLDname/
-                        sleep 10
-                        $SCREENcommand "say §a---Backup §aCompleted---$SCREENenter"
-                        ;;
-        #Restarts the server on the defined screen#
-        -restart )
-                        $SCREENcommand "say §a---Server §aWill §aReboot §aIn §a5 §aMinutes---$SCREENenter"
-                        sleep 295
-                        $SCREENcommand "say §a---Server §aWill §aReboot §aIn §a5 §aSeconds---$SCREENenter"
-                        $SCREENcommand "say §b---Please §bWait §bAbout §b2 §bMinutes$SCREENenter"
-                        sleep 5
-                        $SCREENcommand "stop$SCREENenter"
-                        sleep 60
-                        $SCREENcommand "cd $MINECRAFTpath$SCREENenter"
-			sleep 5
-                        $SCREENcommand "$JAVAstart$SCREENenter"
-			sleep 15
-			tail -n1 $LOGpath
-                        ;;
         #Saves the server on the defined screen#
         -save )
                         $SCREENcommand "say §a---Saving §aServer---$SCREENenter"
@@ -96,20 +66,12 @@ while [ "$1" != "" ]; do
                         sleep 5
                         $SCREENcommand "say §a---Save §aCompleted---$SCREENenter"
                         ;;
-        #Sends the map updater warning# 
-        -minecraftoverviewer )
-                        $SCREENcommand "say §a---Server §aMay §aLag §aCurrently §aUpdating §aMap---$SCREENenter"
-			exit
-                        ;;
 	#Lists all the commands in this script#
         -help )
                         echo "Valid commands :";
                         echo "-start ~ starts the world with predefined settings.";
                         echo "-stop ~ stops the world.";
-                        echo "-backup ~ backs up the world to backup directory";
-                        echo "-restart ~ restarts the world with predefined settings";
-                        echo "-minecraftoverviewer ~ submits the message for the map updating";
-						echo "-save ~ simply saves the world";
+			echo "-save ~ simply saves the world";
                         exit
                         ;;
         #If you ran a command that wasn't here... lets give you help#
@@ -119,5 +81,3 @@ while [ "$1" != "" ]; do
         esac
         shift
 done
-
-
