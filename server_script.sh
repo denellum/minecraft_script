@@ -7,7 +7,7 @@
 
 #The ABSOLUTE path to your backup directory#
 BACKUPpath="/home/minecraft/backups/"
-#How many hours do you want of backups#
+#How many backups do you want#
 BACKUPcount="36"
 #The ABSOLUTE path to your minecraft directory#
 MINECRAFTpath="/home/minecraft/vanilla/"
