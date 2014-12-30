@@ -65,16 +65,60 @@ while [ "$1" != "" ]; do
                         $SCREENcommand "save-all$SCREENenter"
                         sleep 5
                         $SCREENcommand "say §a---Save §aCompleted---$SCREENenter"
+                                ;;
+                #Backs up the server on the defined screen#
+        -backup )
+                        $SCREENcommand "say Â§a---Beginning Â§aBackup---$SCREENenter"
+                        $SCREENcommand "say Â§b---Please Â§bWait---$SCREENenter"
+                        sleep 5
+                        cd $BACKUPpath
+                        sleep 5
+                        (ls -t|head -n 36;ls)|sort|uniq -u|sed -e 's,.*,"&",g'|xargs rm
+                        sleep 10
+                        cd $MINECRAFTpath
+                        tar -cf "$BACKUPpath$BACKUPname" $WORLDname/
+                        sleep 10
+                        $SCREENcommand "say Â§a---Backup Â§aCompleted---$SCREENenter"
                         ;;
-	#Lists all the commands in this script#
+        #Restarts the server on the defined screen#
+        -restart )
+                        $SCREENcommand "say Â§a---Server Â§aWill Â§aReboot Â§aIn Â§a5 Â§aMinutes---$SCREENenter"
+                        sleep 295
+                        $SCREENcommand "say Â§a---Server Â§aWill Â§aReboot Â§aIn Â§a5 Â§aSeconds---$SCREENenter"
+                        $SCREENcommand "say Â§b---Please Â§bWait Â§bAbout Â§b2 Â§bMinutes$SCREENenter"
+                        sleep 5
+                        $SCREENcommand "stop$SCREENenter"
+                        sleep 60
+                        $SCREENcommand "cd $MINECRAFTpath$SCREENenter"
+                        sleep 5
+                        $SCREENcommand "$JAVAstart$SCREENenter"
+                        sleep 15
+                        tail -n1 $LOGpath
+                        ;;
+        #Saves the server on the defined screen#
+        -save )
+                        $SCREENcommand "say Â§a---Saving Â§aServer---$SCREENenter"
+                        $SCREENcommand "save-all$SCREENenter"
+                        sleep 5
+                        $SCREENcommand "say Â§a---Save Â§aCompleted---$SCREENenter"
+                        ;;
+        #Sends the map updater warning# 
+        -minecraftoverviewer )
+                        $SCREENcommand "say Â§a---Server Â§aMay Â§aLag Â§aCurrently Â§aUpdating Â§aMap---$SCREENenter"
+                        exit
+                        ;;
+        #Lists all the commands in this script#
         -help )
                         echo "Valid commands :";
                         echo "-start ~ starts the world with predefined settings.";
                         echo "-stop ~ stops the world.";
-			echo "-save ~ simply saves the world";
+                        echo "-backup ~ backs up the world to backup directory";
+                        echo "-restart ~ restarts the world with predefined settings";
+                        echo "-minecraftoverviewer ~ submits the message for the map updating";
+                       echo "-save ~ simply saves the world";
                         exit
                         ;;
-        #If you ran a command that wasn't here... lets give you help#
+	#If you ran a command that wasn't here... lets give you help#
         * )
                         echo "try -help"
                         exit 1
